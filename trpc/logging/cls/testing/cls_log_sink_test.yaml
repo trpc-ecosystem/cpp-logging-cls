@@ -1,0 +1,14 @@
+plugins:
+  log:
+    default:
+      - name: default
+        min_level: 2
+        format: "[%Y-%m-%d %H:%M:%S.%e] [thread %t] [%l] [%@] %v" 
+        mode: 2
+        sinks:
+        raw_sinks:
+          cls_log:
+            topic_id: 0***********e    # cls log topic id
+            cls_region: a***********u  # cls log reporting domain name
+            secret_id: A***********t   # Tencent Cloud secret_id
+            secret_key: J***********x  # Tencent Cloud secret_key

@@ -1,0 +1,32 @@
+global:
+  threadmodel:
+    fiber:
+      - instance_name: fiber_instance
+        concurrency_hint: 4
+        scheduling_group_size: 4
+        reactor_num_per_scheduling_group: 1
+plugins:
+  log:
+    default:
+      - name: default
+        min_level: 2
+        format: "[%Y-%m-%d %H:%M:%S.%e] [thread %t] [%l] [%@] %v"
+        mode: 2
+        sinks:
+          stdout: # sink of the local console
+            eol: true                    # Whether each output is automatically wrapped. Default line feed
+            stderr_level: 4              # Output to the lowest level of stderr, default 4 (ERROR)
+      - name: custom
+        min_level: 1
+        format: "[%Y-%m-%d %H:%M:%S.%e] [thread %t] [%l] [%@] %v"
+        mode: 2
+        sinks:
+          stdout: # sink of the local console
+            eol: true                    # Whether each output is automatically wrapped. Default line feed
+            stderr_level: 4              # Output to the lowest level of stderr, default 4 (ERROR)
+        raw_sinks:
+          cls_log:
+            topic_id: 0***********e    # cls log topic id
+            cls_region: a***********u  # cls log reporting domain name
+            secret_id: A***********t   # Tencent Cloud secret_id
+            secret_key: J***********x  # Tencent Cloud secret_key

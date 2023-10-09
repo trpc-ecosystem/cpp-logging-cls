@@ -1,0 +1,195 @@
+From bed2d1315678f1af8e52db15039bfccdea00a3cf Mon Sep 17 00:00:00 2001
+From: peggiezhu <peggiezhu@tencent.com>
+Date: Fri, 16 Sep 2022 14:42:25 +0800
+Subject: [PATCH] change-path-with-rebuild-proto
+
+---
+ README.md                        | 6 +++---
+ cls/batchloggroup.h              | 2 +-
+ cls/client.h                     | 2 +-
+ cls/logthreadpool.h              | 2 +-
+ cls/producerclient.h             | 4 ++--
+ cls/result.h                     | 2 +-
+ cls/utils.cpp                    | 2 +-
+ cls/utils.h                      | 2 +-
+ cls_logs.pb.cc                   | 2 +-
+ logproducerconfig.pb.cc          | 2 +-
+ test/tencentclssdk_benchmark.cpp | 4 ++--
+ test/tencentclssdk_test.cpp      | 4 ++--
+ 12 files changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/README.md b/README.md
+index 41cfc59..687b02e 100644
+--- a/README.md
++++ b/README.md
+@@ -51,8 +51,8 @@ tencent-log-sdk-cpp 是C++用户日志结构化上传的SDK，采用轻量的设
+ ```
+ #include "producerclient.h"
+ #include "common.h"
+-#include "cls_logs.pb.h"
+-#include "logproducerconfig.pb.h"
++#include "cls_sdk/cls_logs.pb.h"
++#include "cls_sdk/logproducerconfig.pb.h"
+ #include <string>
+ #include <iostream>
+ #include <unistd.h>
+@@ -125,7 +125,7 @@ int main()
+ ```c++
+ #include "client.h"
+ #include "common.h"
+-#include "cls_logs.pb.h"
++#include "cls_sdk/cls_logs.pb.h"
+ #include <string>
+ #include <iostream>
+ #include <unistd.h>
+diff --git a/cls/batchloggroup.h b/cls/batchloggroup.h
+index 15fd020..d8cf789 100644
+--- a/cls/batchloggroup.h
++++ b/cls/batchloggroup.h
+@@ -1,7 +1,7 @@
+ #ifndef __LOGV6_SDK_BATCHLOGGROUP_H__
+ #define __LOGV6_SDK_BATCHLOGGROUP_H__
+ 
+-#include "cls_logs.pb.h"
++#include "cls_sdk/cls_logs.pb.h"
+ #include "result.h"
+ 
+ #include <string>
+diff --git a/cls/client.h b/cls/client.h
+index 97906f2..3214d40 100644
+--- a/cls/client.h
++++ b/cls/client.h
+@@ -5,7 +5,7 @@
+ #include <map>
+ #include <utility>
+ #include "RestfulApiCommon.h"
+-#include "cls_logs.pb.h"
++#include "cls_sdk/cls_logs.pb.h"
+ 
+ #include "rapidjson/writer.h"
+ #include "rapidjson/document.h"
+diff --git a/cls/logthreadpool.h b/cls/logthreadpool.h
+index 224d78d..b2c3b93 100644
+--- a/cls/logthreadpool.h
++++ b/cls/logthreadpool.h
+@@ -13,7 +13,7 @@
+ 
+ #include "batchloggroup.h"
+ #include "logmemmgr.h"
+-#include "logproducerconfig.pb.h"
++#include "cls_sdk/logproducerconfig.pb.h"
+ #include "client.h"
+ #include "logretryqueue.h"
+ namespace tencent_log_sdk_cpp_v2
+diff --git a/cls/producerclient.h b/cls/producerclient.h
+index c9081e2..7a3cde1 100644
+--- a/cls/producerclient.h
++++ b/cls/producerclient.h
+@@ -1,11 +1,11 @@
+ #ifndef __LOGV6_PRODUCERCLIENT_H__
+ #define __LOGV6_PRODUCERCLIENT_H__
+ #include "result.h"
+-#include "cls_logs.pb.h"
++#include "cls_sdk/cls_logs.pb.h"
+ #include "logthreadpool.h"
+ #include "logaccumulator.h"
+ #include "logtimer.h"
+-#include "logproducerconfig.pb.h"
++#include "cls_sdk/logproducerconfig.pb.h"
+ #include "error.h"
+ #include "logretryqueue.h"
+ 
+diff --git a/cls/result.h b/cls/result.h
+index 73fc0c9..ee474a1 100644
+--- a/cls/result.h
++++ b/cls/result.h
+@@ -5,7 +5,7 @@
+ #include <iostream>
+ #include <sstream>
+ 
+-#include "cls_logs.pb.h"
++#include "cls_sdk/cls_logs.pb.h"
+ /*
+  * Responses
+  */
+diff --git a/cls/utils.cpp b/cls/utils.cpp
+index 7602ea4..2900696 100644
+--- a/cls/utils.cpp
++++ b/cls/utils.cpp
+@@ -1,4 +1,4 @@
+-#include "cls_logs.pb.h"
++#include "cls_sdk/cls_logs.pb.h"
+ #include <string>
+ #include <chrono>
+ #include <ctime>
+diff --git a/cls/utils.h b/cls/utils.h
+index 19d718b..e1de30b 100644
+--- a/cls/utils.h
++++ b/cls/utils.h
+@@ -1,6 +1,6 @@
+ #pragma once
+ #include <string>
+-#include "cls_logs.pb.h"
++#include "cls_sdk/cls_logs.pb.h"
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+diff --git a/cls_logs.pb.cc b/cls_logs.pb.cc
+index 3ec63dd..ae5c340 100644
+--- a/cls_logs.pb.cc
++++ b/cls_logs.pb.cc
+@@ -2,7 +2,7 @@
+ // source: cls_logs.proto
+ 
+ #define INTERNAL_SUPPRESS_PROTOBUF_FIELD_DEPRECATION
+-#include "cls_logs.pb.h"
++#include "cls_sdk/cls_logs.pb.h"
+ 
+ #include <algorithm>
+ 
+diff --git a/logproducerconfig.pb.cc b/logproducerconfig.pb.cc
+index 67a97a6..a36b34f 100644
+--- a/logproducerconfig.pb.cc
++++ b/logproducerconfig.pb.cc
+@@ -2,7 +2,7 @@
+ // source: logproducerconfig.proto
+ 
+ #define INTERNAL_SUPPRESS_PROTOBUF_FIELD_DEPRECATION
+-#include "logproducerconfig.pb.h"
++#include "cls_sdk/logproducerconfig.pb.h"
+ 
+ #include <algorithm>
+ 
+diff --git a/test/tencentclssdk_benchmark.cpp b/test/tencentclssdk_benchmark.cpp
+index 91ba72e..40a8e3d 100644
+--- a/test/tencentclssdk_benchmark.cpp
++++ b/test/tencentclssdk_benchmark.cpp
+@@ -4,8 +4,8 @@
+ 
+ #include "producerclient.h"
+ #include "common.h"
+-#include "cls_logs.pb.h"
+-#include "logproducerconfig.pb.h"
++#include "cls_sdk/cls_logs.pb.h"
++#include "cls_sdk/logproducerconfig.pb.h"
+ #include <string>
+ #include <iostream>
+ #include <unistd.h>
+diff --git a/test/tencentclssdk_test.cpp b/test/tencentclssdk_test.cpp
+index 7440ce5..1a47dcd 100644
+--- a/test/tencentclssdk_test.cpp
++++ b/test/tencentclssdk_test.cpp
+@@ -6,8 +6,8 @@
+ 
+ #include "producerclient.h"
+ #include "common.h"
+-#include "cls_logs.pb.h"
+-#include "logproducerconfig.pb.h"
++#include "cls_sdk/cls_logs.pb.h"
++#include "cls_sdk/logproducerconfig.pb.h"
+ #include <string>
+ #include <iostream>
+ #include <unistd.h>
+-- 
+2.36.1
+

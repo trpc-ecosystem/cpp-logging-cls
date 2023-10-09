@@ -1,0 +1,184 @@
+From 456494fd58290db8a64115b3edb64fa2a0912a97 Mon Sep 17 00:00:00 2001
+From: peggiezhu <peggiezhu@tencent.com>
+Date: Mon, 12 Jun 2023 14:33:52 +0800
+Subject: [PATCH] rename-cls-to-cls_sdk.patch
+
+---
+ {cls => cls_sdk}/RestfulApiCommon.h | 0
+ {cls => cls_sdk}/adapter.cpp        | 0
+ {cls => cls_sdk}/adapter.h          | 0
+ {cls => cls_sdk}/batchloggroup.cpp  | 0
+ {cls => cls_sdk}/batchloggroup.h    | 0
+ {cls => cls_sdk}/client.cpp         | 0
+ {cls => cls_sdk}/client.h           | 0
+ {cls => cls_sdk}/common.cpp         | 0
+ {cls => cls_sdk}/common.h           | 0
+ {cls => cls_sdk}/error.h            | 0
+ {cls => cls_sdk}/logaccumulator.cpp | 0
+ {cls => cls_sdk}/logaccumulator.h   | 0
+ {cls => cls_sdk}/logmemmgr.cpp      | 0
+ {cls => cls_sdk}/logmemmgr.h        | 0
+ {cls => cls_sdk}/logretryqueue.cpp  | 0
+ {cls => cls_sdk}/logretryqueue.h    | 0
+ {cls => cls_sdk}/logthreadpool.cpp  | 0
+ {cls => cls_sdk}/logthreadpool.h    | 0
+ {cls => cls_sdk}/logtimer.cpp       | 0
+ {cls => cls_sdk}/logtimer.h         | 0
+ {cls => cls_sdk}/producerclient.cpp | 0
+ {cls => cls_sdk}/producerclient.h   | 0
+ {cls => cls_sdk}/result.h           | 0
+ {cls => cls_sdk}/sample.cpp         | 0
+ {cls => cls_sdk}/signature.cpp      | 0
+ {cls => cls_sdk}/signature.h        | 0
+ {cls => cls_sdk}/syncsample.cpp     | 0
+ {cls => cls_sdk}/utils.cpp          | 0
+ {cls => cls_sdk}/utils.h            | 0
+ 29 files changed, 0 insertions(+), 0 deletions(-)
+ rename {cls => cls_sdk}/RestfulApiCommon.h (100%)
+ rename {cls => cls_sdk}/adapter.cpp (100%)
+ rename {cls => cls_sdk}/adapter.h (100%)
+ rename {cls => cls_sdk}/batchloggroup.cpp (100%)
+ rename {cls => cls_sdk}/batchloggroup.h (100%)
+ rename {cls => cls_sdk}/client.cpp (100%)
+ rename {cls => cls_sdk}/client.h (100%)
+ rename {cls => cls_sdk}/common.cpp (100%)
+ rename {cls => cls_sdk}/common.h (100%)
+ rename {cls => cls_sdk}/error.h (100%)
+ rename {cls => cls_sdk}/logaccumulator.cpp (100%)
+ rename {cls => cls_sdk}/logaccumulator.h (100%)
+ rename {cls => cls_sdk}/logmemmgr.cpp (100%)
+ rename {cls => cls_sdk}/logmemmgr.h (100%)
+ rename {cls => cls_sdk}/logretryqueue.cpp (100%)
+ rename {cls => cls_sdk}/logretryqueue.h (100%)
+ rename {cls => cls_sdk}/logthreadpool.cpp (100%)
+ rename {cls => cls_sdk}/logthreadpool.h (100%)
+ rename {cls => cls_sdk}/logtimer.cpp (100%)
+ rename {cls => cls_sdk}/logtimer.h (100%)
+ rename {cls => cls_sdk}/producerclient.cpp (100%)
+ rename {cls => cls_sdk}/producerclient.h (100%)
+ rename {cls => cls_sdk}/result.h (100%)
+ rename {cls => cls_sdk}/sample.cpp (100%)
+ rename {cls => cls_sdk}/signature.cpp (100%)
+ rename {cls => cls_sdk}/signature.h (100%)
+ rename {cls => cls_sdk}/syncsample.cpp (100%)
+ rename {cls => cls_sdk}/utils.cpp (100%)
+ rename {cls => cls_sdk}/utils.h (100%)
+
+diff --git a/cls/RestfulApiCommon.h b/cls_sdk/RestfulApiCommon.h
+similarity index 100%
+rename from cls/RestfulApiCommon.h
+rename to cls_sdk/RestfulApiCommon.h
+diff --git a/cls/adapter.cpp b/cls_sdk/adapter.cpp
+similarity index 100%
+rename from cls/adapter.cpp
+rename to cls_sdk/adapter.cpp
+diff --git a/cls/adapter.h b/cls_sdk/adapter.h
+similarity index 100%
+rename from cls/adapter.h
+rename to cls_sdk/adapter.h
+diff --git a/cls/batchloggroup.cpp b/cls_sdk/batchloggroup.cpp
+similarity index 100%
+rename from cls/batchloggroup.cpp
+rename to cls_sdk/batchloggroup.cpp
+diff --git a/cls/batchloggroup.h b/cls_sdk/batchloggroup.h
+similarity index 100%
+rename from cls/batchloggroup.h
+rename to cls_sdk/batchloggroup.h
+diff --git a/cls/client.cpp b/cls_sdk/client.cpp
+similarity index 100%
+rename from cls/client.cpp
+rename to cls_sdk/client.cpp
+diff --git a/cls/client.h b/cls_sdk/client.h
+similarity index 100%
+rename from cls/client.h
+rename to cls_sdk/client.h
+diff --git a/cls/common.cpp b/cls_sdk/common.cpp
+similarity index 100%
+rename from cls/common.cpp
+rename to cls_sdk/common.cpp
+diff --git a/cls/common.h b/cls_sdk/common.h
+similarity index 100%
+rename from cls/common.h
+rename to cls_sdk/common.h
+diff --git a/cls/error.h b/cls_sdk/error.h
+similarity index 100%
+rename from cls/error.h
+rename to cls_sdk/error.h
+diff --git a/cls/logaccumulator.cpp b/cls_sdk/logaccumulator.cpp
+similarity index 100%
+rename from cls/logaccumulator.cpp
+rename to cls_sdk/logaccumulator.cpp
+diff --git a/cls/logaccumulator.h b/cls_sdk/logaccumulator.h
+similarity index 100%
+rename from cls/logaccumulator.h
+rename to cls_sdk/logaccumulator.h
+diff --git a/cls/logmemmgr.cpp b/cls_sdk/logmemmgr.cpp
+similarity index 100%
+rename from cls/logmemmgr.cpp
+rename to cls_sdk/logmemmgr.cpp
+diff --git a/cls/logmemmgr.h b/cls_sdk/logmemmgr.h
+similarity index 100%
+rename from cls/logmemmgr.h
+rename to cls_sdk/logmemmgr.h
+diff --git a/cls/logretryqueue.cpp b/cls_sdk/logretryqueue.cpp
+similarity index 100%
+rename from cls/logretryqueue.cpp
+rename to cls_sdk/logretryqueue.cpp
+diff --git a/cls/logretryqueue.h b/cls_sdk/logretryqueue.h
+similarity index 100%
+rename from cls/logretryqueue.h
+rename to cls_sdk/logretryqueue.h
+diff --git a/cls/logthreadpool.cpp b/cls_sdk/logthreadpool.cpp
+similarity index 100%
+rename from cls/logthreadpool.cpp
+rename to cls_sdk/logthreadpool.cpp
+diff --git a/cls/logthreadpool.h b/cls_sdk/logthreadpool.h
+similarity index 100%
+rename from cls/logthreadpool.h
+rename to cls_sdk/logthreadpool.h
+diff --git a/cls/logtimer.cpp b/cls_sdk/logtimer.cpp
+similarity index 100%
+rename from cls/logtimer.cpp
+rename to cls_sdk/logtimer.cpp
+diff --git a/cls/logtimer.h b/cls_sdk/logtimer.h
+similarity index 100%
+rename from cls/logtimer.h
+rename to cls_sdk/logtimer.h
+diff --git a/cls/producerclient.cpp b/cls_sdk/producerclient.cpp
+similarity index 100%
+rename from cls/producerclient.cpp
+rename to cls_sdk/producerclient.cpp
+diff --git a/cls/producerclient.h b/cls_sdk/producerclient.h
+similarity index 100%
+rename from cls/producerclient.h
+rename to cls_sdk/producerclient.h
+diff --git a/cls/result.h b/cls_sdk/result.h
+similarity index 100%
+rename from cls/result.h
+rename to cls_sdk/result.h
+diff --git a/cls/sample.cpp b/cls_sdk/sample.cpp
+similarity index 100%
+rename from cls/sample.cpp
+rename to cls_sdk/sample.cpp
+diff --git a/cls/signature.cpp b/cls_sdk/signature.cpp
+similarity index 100%
+rename from cls/signature.cpp
+rename to cls_sdk/signature.cpp
+diff --git a/cls/signature.h b/cls_sdk/signature.h
+similarity index 100%
+rename from cls/signature.h
+rename to cls_sdk/signature.h
+diff --git a/cls/syncsample.cpp b/cls_sdk/syncsample.cpp
+similarity index 100%
+rename from cls/syncsample.cpp
+rename to cls_sdk/syncsample.cpp
+diff --git a/cls/utils.cpp b/cls_sdk/utils.cpp
+similarity index 100%
+rename from cls/utils.cpp
+rename to cls_sdk/utils.cpp
+diff --git a/cls/utils.h b/cls_sdk/utils.h
+similarity index 100%
+rename from cls/utils.h
+rename to cls_sdk/utils.h
+-- 
+2.37.3
