@@ -1,6 +1,9 @@
 [中文](./README.zh_CN.md)
 
-[TOC]
+[![LICENSE](https://img.shields.io/badge/license-Apache--2.0-green.svg)](https://github.com/trpc-ecosystem/cpp-logging-cls/blob/main/LICENSE)
+[![Releases](https://img.shields.io/github/release/trpc-ecosystem/cpp-logging-cls.svg?style=flat-square)](https://github.com/trpc-ecosystem/cpp-logging-cls/releases)
+[![Build Status](https://github.com/trpc-ecosystem/cpp-logging-cls/actions/workflows/ci.yml/badge.svg)](https://github.com/trpc-ecosystem/cpp-logging-cls/actions/workflows/ci.yml)
+[![Coverage](https://codecov.io/gh/trpc-ecosystem/cpp-logging-cls/branch/main/graph/badge.svg)](https://app.codecov.io/gh/trpc-ecosystem/cpp-logging-cls/tree/main)
 
 # Overview
 
