@@ -37,6 +37,24 @@ class ClsLogTest : public ::testing::Test {
       return;
     }
 
+    ASSERT_TRUE(config_list.size() == 1);
+
+    auto& cls_conf = config_list[0];
+    cls_conf.Display();
+    ASSERT_STREQ(cls_conf.logger_name.c_str(), "default");
+    ASSERT_TRUE(cls_conf.mode == 2);
+    ASSERT_TRUE(cls_conf.logs_per_request == 100);
+    ASSERT_TRUE(cls_conf.request_timeout == 50);
+    ASSERT_TRUE(cls_conf.connect_timeout == 5);
+
+    ASSERT_STREQ(cls_conf.topic_id.c_str(), "0***********e");
+    ASSERT_STREQ(cls_conf.cls_region.c_str(), "a***********u");
+    ASSERT_STREQ(cls_conf.cls_domain.c_str(), "tencentyun");
+    ASSERT_STREQ(cls_conf.secret_id.c_str(), "A***********t");
+    ASSERT_STREQ(cls_conf.secret_key.c_str(), "J***********x");
+    ASSERT_STREQ(cls_conf.key_message.c_str(), "msg");
+    ASSERT_STREQ(cls_conf.endpoint.c_str(), "a***********u.cls.tencentyun.com");
+
     cls_default_ = MakeRefCounted<ClsLog>(config_list[0]);
     default_log_->RegisterRawSink(cls_default_);
   }

@@ -35,8 +35,9 @@ ClsSink 类是一个自定义的 spdlog 日志接收器，负责将日志发送�
 
 1. 引入仓库
 
-    在项目的WORKSPACE文件中，引入cpp-cls-logging仓库及其依赖：
-    ```
+    在项目的WORKSPACE文件中，引入 `cpp-cls-logging` 仓库及其依赖：
+
+    ```bzl
     load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
     git_repository(
@@ -60,8 +61,9 @@ ClsSink 类是一个自定义的 spdlog 日志接收器，负责将日志发送�
 
 2. 引入插件
 
-   在需要用到CLS的目标中引入“@cpp-cls-logging//trpc/logging/cls:cls_log_api”依赖。例如：
-   ```
+   在需要用到 CLS 的目标中引入“@cpp-cls-logging//trpc/logging/cls:cls_log_api”依赖。例如：
+
+   ```bzl
    cc_binary(
       name = "helloworld_server",
       srcs = ["helloworld_server.cc"],
@@ -79,6 +81,7 @@ ClsSink 类是一个自定义的 spdlog 日志接收器，负责将日志发送�
 ## 插件配置
 
 要使用Etcd插件，必须在框架配置文件中加上插件配置：
+
 ```yaml
 plugins:
   log:
@@ -110,20 +113,20 @@ plugins:
 
 CLS插件提供了插件注册的接口 ::trpc::cls::Init()，用户需要在框架启动前调用该接口进行初始化。
 
-对于服务端场景，用户需要在服务启动的 TrpcApp::RegisterPlugins 函数中调用：
+1. 对于服务端场景，用户需要在服务启动的 TrpcApp::RegisterPlugins 函数中调用：
 
-    ```cpp
-    #include "trpc/logging/cls/cls_log_api.h"
+```cpp
+#include "trpc/logging/cls/cls_log_api.h"
 
-    class HelloworldServer : public ::trpc::TrpcApp {
-     public:
-      ...
-      int RegisterPlugins() override {
-        ::trpc::cls::Init();
-        return 0;
-      }
-    };
-    ```
+class HelloworldServer : public ::trpc::TrpcApp {
+ public:
+  ...
+  int RegisterPlugins() override {
+    ::trpc::cls::Init();
+    return 0;
+  }
+};
+```
 
 2. 对于纯客户端场景，需要在启动框架配置初始化后，框架其他模块启动前调用：
 
@@ -149,6 +152,7 @@ CLS插件提供了插件注册的接口 ::trpc::cls::Init()，用户需要在框
 * 在使用CLS插件之前，您需要确保已正确开通并配置了CLS服务。此外，您还需要了解如何在腾讯云控制台上创建日志主题和配置日志投递规则。以下是有关这两个方面的简要说明：
 
 ### 开通并配置CLS服务
+
 1. 登录腾讯云控制台 [TencentCloud](https://cloud.tencent.com/login?s_url=https%3A%2F%2Fconsole.cloud.tencent.com%2F) 在产品列表中找到云日志服务[CLS](https://cloud.tencent.com/product/cls)。
 
 2. 在CLS控制台中，创建一个新的日志集。
@@ -158,6 +162,7 @@ CLS插件提供了插件注册的接口 ::trpc::cls::Init()，用户需要在框
 4. 在新创建的日志主题中，配置日志投递规则。您可以根据需要设置投递的目标（例如COS、CDN等）、投递频率、投递文件格式等参数。
 
 ### 获取日志主题的Topic ID
+
 1. 登录腾讯云控制台 [TencentCloud](https://cloud.tencent.com/login?s_url=https%3A%2F%2Fconsole.cloud.tencent.com%2F) 在产品列表中找到云日志服务[CLS](https://cloud.tencent.com/product/cls)。
 
 2. 进入刚刚创建的日志主题页面。
@@ -165,6 +170,7 @@ CLS插件提供了插件注册的接口 ::trpc::cls::Init()，用户需要在框
 3. 在日志主题的基本信息页面，找到该日志主题的Topic ID。将此Topic ID添加到插件配置中，以便将日志数据发送到该主题。
 
 ### 特别提示
+
 1. 为了确保日志数据能够正确地发送到CLS平台，请确保您的腾讯云账户具有足够的权限。在使用CLS插件时，您需要在配置SecretId和SecretKey在yaml文件中，这两个参数可以在腾讯云控制台[TencentCloud](https://cloud.tencent.com/login?s_url=https%3A%2F%2Fconsole.cloud.tencent.com%2F)的API密钥管理页面中创建和获取。
 
 2. 请注意，发送到CLS平台的日志数据可能会产生一定的费用。具体的费用标准，请参考腾讯云官方文档[TencentCloud](https://buy.cloud.tencent.com/pricing)中的计费说明。
