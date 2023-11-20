@@ -36,32 +36,34 @@ Detailed usage examples can be found in [CLS examples](./examples/)。
 1. Import repository
 
    In the project's WORKSPACE file, import the cpp-cls-logging repository and its dependencies:
-    ```
-    load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-    git_repository(
-        name = "trpc_cpp",
-        remote = "https://github.com/trpc-group/trpc-cpp.git",
-        branch = "main",
-    )
-    
-    load("@trpc_cpp//trpc:workspace.bzl", "trpc_workspace")
-    trpc_workspace()
-    
-    git_repository(
-        name = "cpp-cls-logging",
-        remote = "https://github.com/trpc-ecosystem/cpp-logging-cls.git",
-        branch = "main",
-    )
-    
-    load("@cpp-cls-logging//trpc:workspace.bzl", "logging_cls_workspace")
-    logging_cls_workspace()
-    ```
+   ```bzl
+   load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+   git_repository(
+       name = "trpc_cpp",
+       remote = "https://github.com/trpc-group/trpc-cpp.git",
+       branch = "main",
+   )
+   
+   load("@trpc_cpp//trpc:workspace.bzl", "trpc_workspace")
+   trpc_workspace()
+   
+   git_repository(
+       name = "cpp-cls-logging",
+       remote = "https://github.com/trpc-ecosystem/cpp-logging-cls.git",
+       branch = "main",
+   )
+   
+   load("@cpp-cls-logging//trpc:workspace.bzl", "logging_cls_workspace")
+   logging_cls_workspace()
+   ```
 
 2. Import plugin
 
    In the target where CLS is needed, import the "@cpp-cls-logging//trpc/logging/cls:cls_log_api" dependency. For example:
-   ```
+
+   ```bzl
    cc_binary(
        name = "helloworld_server",
        srcs = ["helloworld_server.cc"],
@@ -79,6 +81,7 @@ Not supported yet.
 ## Plugin Configuration
 
 To use the Etcd plugin, you must add the plugin configuration to the framework configuration file:
+
 ```yaml
 plugins:
   log:
@@ -110,20 +113,20 @@ The following is a detailed explanation of these configuration items:
 
 The CLS plugin provides a plugin registration interface ::trpc::cls::Init(), and users need to call this interface before starting the framework.
 
-For server scenarios, users need to call the TrpcApp::RegisterPlugins function in the service startup:
+1. For server scenarios, users need to call the TrpcApp::RegisterPlugins function in the service startup:
 
-    ```cpp
-    #include "trpc/logging/cls/cls_log_api.h"
+```cpp
+  #include "trpc/logging/cls/cls_log_api.h"
 
-    class HelloworldServer : public ::trpc::TrpcApp {
-     public:
-      ...
-      int RegisterPlugins() override {
-        ::trpc::logging::cls::Init();
-        return 0;
-      }
-    };
-    ```
+  class HelloworldServer : public ::trpc::TrpcApp {
+   public:
+    ...
+    int RegisterPlugins() override {
+      ::trpc::logging::cls::Init();
+      return 0;
+    }
+  };
+```
 
 2. For pure client scenarios, you need to call it after starting the framework configuration initialization and before starting other framework modules:
 
@@ -149,6 +152,7 @@ For server scenarios, users need to call the TrpcApp::RegisterPlugins function i
 * Before using the CLS plugin, you need to ensure that the CLS service is correctly activated and configured. In addition, you also need to know how to create log topics and configure log delivery rules on the Tencent Cloud console. The following is a brief introduction to these two aspects:
 
 ### Activate and configure CLS service
+
 1. Log in to the Tencent Cloud Console [TencentCloud](https://cloud.tencent.com/login?s_url=https%3A%2F%2Fconsole.cloud.tencent.com%2F) and find the Cloud Log Service[CLS](https://cloud.tencent.com/product/cls) in the product list.
 
 2. In the CLS console, create a new log set.
@@ -158,6 +162,7 @@ For server scenarios, users need to call the TrpcApp::RegisterPlugins function i
 4. In the newly created log topic, configure log delivery rules. You can set the delivery target (e.g., COS, CDN, etc.), delivery frequency, and delivery file format according to your needs.
 
 ### Get the Topic ID of the log topic
+
 1. Log in to the Tencent Cloud Console [TencentCloud](https://cloud.tencent.com/login?s_url=https%3A%2F%2Fconsole.cloud.tencent.com%2F) and find the Cloud Log Service[CLS](https://cloud.tencent.com/product/cls) in the product list.
 
 2. Enter the page of the log topic you just created.
@@ -165,6 +170,7 @@ For server scenarios, users need to call the TrpcApp::RegisterPlugins function i
 3. On the basic information page of the log topic, find the Topic ID of the log topic. Add this Topic ID to the plugin configuration to send log data to that topic.
 
 ### Special Tips
+
 1. To ensure that log data can be correctly sent to the CLS platform, please make sure your Tencent Cloud account has sufficient permissions. When using the CLS plugin, you need to configure the SecretId and SecretKey in the yaml file. These two parameters can be created and obtained in the API key management page of the Tencent Cloud Console[TencentCloud](https://cloud.tencent.com/login?s_url=https%3A%2F%2Fconsole.cloud.tencent.com%2F).
 
 2. Please note that sending log data to the CLS platform may incur certain costs. For specific cost standards, please refer to the billing instructions in the Tencent Cloud official document [TencentCloud](https://buy.cloud.tencent.com/pricing).

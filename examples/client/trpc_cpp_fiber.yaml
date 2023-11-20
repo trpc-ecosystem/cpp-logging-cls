@@ -9,9 +9,9 @@ plugins:
   log:
     default:
       - name: default
-        min_level: 2
+        min_level: 2 # 0-trace, 1-debug, 2-info, 3-warn, 4-error, 5-critical
         format: "[%Y-%m-%d %H:%M:%S.%e] [thread %t] [%l] [%@] %v"
-        mode: 2
+        mode: 2 # 1-Synchronous, 2-Asynchronous, 3-Extreme-Speed
         sinks:
           stdout: # sink of the local console
             eol: true                    # Whether each output is automatically wrapped. Default line feed

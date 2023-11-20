@@ -12,6 +12,7 @@
 //
 
 #include "trpc/logging/cls/cls_sink.h"
+
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
