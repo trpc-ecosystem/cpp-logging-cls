@@ -170,3 +170,9 @@ For server scenarios, users need to call the TrpcApp::RegisterPlugins function i
 2. Please note that sending log data to the CLS platform may incur certain costs. For specific cost standards, please refer to the billing instructions in the Tencent Cloud official document [TencentCloud](https://buy.cloud.tencent.com/pricing).
 
 3. To avoid unnecessary costs, please make sure to turn off the CLS plugin when it is no longer needed. You can turn off the plugin by deleting the related configuration of the CLS plugin in the framework configuration file.
+
+# LICENSE
+
+[LICENSE](LICENSE)
+
+The copyright notice pertaining to the Tencent code in this repo was previously in the name of “THL A29 Limited.”  That entity has now been de-registered.  You should treat all previously distributed copies of the code as if the copyright notice was in the name of “Tencent.”
