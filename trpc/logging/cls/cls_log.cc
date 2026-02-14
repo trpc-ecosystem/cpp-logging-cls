@@ -26,15 +26,15 @@ namespace trpc::cls {
 
 std::unordered_map<std::string, uint32_t> logger_plungin_id_map;
 
-void SetLoggerPlunginId(const std::string& logger_name, uint32_t plugin_id) {
+void SetLoggerPluginId(const std::string& logger_name, uint32_t plugin_id) {
   logger_plungin_id_map[logger_name] = plugin_id;
 }
 
-uint32_t GetPlunginIdFromLogger(const std::string& logger_name) { return logger_plungin_id_map[logger_name]; }
+uint32_t GetPluginIdFromLogger(const std::string& logger_name) { return logger_plungin_id_map[logger_name]; }
 
-std::unordered_map<std::string, uint32_t>& GetLoggerPlunginIdMap() { return logger_plungin_id_map; }
+std::unordered_map<std::string, uint32_t>& GetLoggerPluginIdMap() { return logger_plungin_id_map; }
 
-void ClsLog::initSDK() {
+void ClsLog::InitSDK() {
   // Init cls-sdk client.
   sdk_config_.set_maxsendworkercount(1);
   sdk_config_.set_endpoint(endpoint_);
@@ -49,7 +49,7 @@ void ClsLog::initSDK() {
   cls_sink_->Start();
 }
 
-bool ClsLog::initSpdLogger() {
+bool ClsLog::InitSpdLogger() {
   auto formatter =
       std::make_unique<spdlog::pattern_formatter>(spdlog::pattern_time_type::local, spdlog::details::os::default_eol);
   cls_sink_->set_formatter(std::move(formatter));
@@ -81,13 +81,13 @@ int ClsLog::Init() noexcept {
   cls_sink_ = std::make_shared<ClsSinkMt>();
 
   // Initialize spdlog logger configuration
-  if (!initSpdLogger()) {
+  if (!InitSpdLogger()) {
     TRPC_FMT_ERROR("Init spdlog logger fail!");
     return -1;
   }
 
   // Initialize the cls-sdk configuration
-  initSDK();
+  InitSDK();
 
   return 0;
 }

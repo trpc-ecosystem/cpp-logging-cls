@@ -36,16 +36,16 @@ namespace trpc::cls {
 /// @brief Set the plugin ID for a given logger name.
 /// @param logger_name The name of the logger.
 /// @param plugin_id The ID of the plugin associated with the logger.
-void SetLoggerPlunginId(const std::string& logger_name, uint32_t plugin_id);
+void SetLoggerPluginId(const std::string& logger_name, uint32_t plugin_id);
 
 /// @brief Get the plugin ID associated with a given logger name.
 /// @param logger_name The name of the logger.
 /// @return The plugin ID associated with the logger name.
-uint32_t GetPlunginIdFromLogger(const std::string& logger_name);
+uint32_t GetPluginIdFromLogger(const std::string& logger_name);
 
 /// @brief Get the map of logger names to plugin IDs.
 /// @return A reference to the unordered_map containing logger names as keys and plugin IDs as values.
-std::unordered_map<std::string, uint32_t>& GetLoggerPlunginIdMap();
+std::unordered_map<std::string, uint32_t>& GetLoggerPluginIdMap();
 
 /// @brief Adds key-value pairs to the context's filter data for each logger plugin.
 /// @tparam T The type of the context object.
@@ -63,14 +63,14 @@ std::unordered_map<std::string, uint32_t>& GetLoggerPlunginIdMap();
 /// @endcode
 template <typename T, typename... Args>
 void WithFields(T& context, Args&&... key_value_pairs) {
-  auto plugin_id_map = GetLoggerPlunginIdMap();
+  auto plugin_id_map = GetLoggerPluginIdMap();
   for (const auto& [logger_name, plugin_id] : plugin_id_map) {
     auto* data_map = context->template GetFilterData<std::unordered_map<std::string, std::string>>(
-        GetPlunginIdFromLogger(logger_name.c_str()));
+        GetPluginIdFromLogger(logger_name.c_str()));
     if (!data_map) {
       std::unordered_map<std::string, std::string> new_data_map;
       (new_data_map.emplace(std::forward<Args>(key_value_pairs)), ...);
-      context->SetFilterData(GetPlunginIdFromLogger(logger_name.c_str()), std::move(new_data_map));
+      context->SetFilterData(GetPluginIdFromLogger(logger_name.c_str()), std::move(new_data_map));
     } else {
       (data_map->emplace(std::forward<Args>(key_value_pairs)), ...);
     }
@@ -79,11 +79,11 @@ void WithFields(T& context, Args&&... key_value_pairs) {
 
 class ClsLog : public Logging {
  public:
-  std::string Name() const { return "cls-log"; }
+  std::string Name() const override { return "cls-log"; }
 
-  std::string LoggerName() const { return logger_name_; }
+  const std::string& LoggerName() const override { return logger_name_; }
 
-  std::string Version() const { return "1.0.0"; }
+  std::string Version() const  { return "1.0.0"; }
 
   explicit ClsLog(const ClsLogSinkConfig& sink_config)
       : logger_name_(sink_config.logger_name),
@@ -92,7 +92,7 @@ class ClsLog : public Logging {
         endpoint_(sink_config.endpoint),
         secret_id_(sink_config.secret_id),
         secret_key_(sink_config.secret_key) {
-    SetLoggerPlunginId(logger_name_, this->GetPluginID());
+    SetLoggerPluginId(logger_name_, this->GetPluginID());
     Init();
   }
 
@@ -154,10 +154,10 @@ class ClsLog : public Logging {
 
  private:
   // Initialize the CLS SDK
-  void initSDK();
+  void InitSDK();
 
   // Initialize the spdlog logger instance
-  bool initSpdLogger();
+  bool InitSpdLogger();
 
  private:
   // logger configuration

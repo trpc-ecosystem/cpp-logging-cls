@@ -24,7 +24,7 @@ bool Init() {
     return -1;
   }
   for (const auto& config : config_list) {
-    TrpcPlugin::GetInstance()->RegisterLogging(MakeRefCounted<ClsLog>(std::move(config)));
+    TrpcPlugin::GetInstance()->RegisterLogging(MakeRefCounted<ClsLog>(config));
   }
 
   return true;
